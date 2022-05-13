@@ -11,53 +11,38 @@ export function Transaction(type, amount) {
 }
 
 export function addIncome(users, amount, mobile) {
-  let found = users.find((user) => {
-    return user.mobile === mobile;
-  });
+  let found = users.find((user) => user.mobile === mobile);
 
-  if (found) {
-    let income = createIncome("income", amount);
-    found.balance += amount;
-    found.incomes.push(income);
-    return found;
-  } else {
-    return undefined;
-  }
+  if (!found) return undefined;
+
+  let income = createIncome("income", amount);
+  found.balance += amount;
+  found.incomes.push(income);
+  return found;
 }
 
 export function addExpense(users, amount, mobile) {
-  let found = users.find((user) => {
-    return user.mobile === mobile;
-  });
+  let found = users.find((user) => user.mobile === mobile);
 
-  if (found && found.balance !== 0) {
-    let expense = createExpense("expense", amount);
-    found.balance -= amount;
-    found.expenses.push(expense);
-    return found;
-  } else {
-    return undefined;
-  }
+  if (!found) return undefined;
+  if (found.balance === 0) return undefined;
+
+  let expense = createExpense("expense", amount);
+  found.balance -= amount;
+  found.expenses.push(expense);
+  return found;
 }
 
 // create income
 export function createIncome(type, amount) {
-  if (["income", "deposit"].includes(type)) {
-    let income = new Transaction(type, amount);
-    return income;
-  } else {
-    return undefined;
-  }
+  if (!["income", "deposit"].includes(type)) return undefined;
+  return new Transaction(type, amount);
 }
 
 // create expense
 export function createExpense(type, amount) {
-  if (["expense", "withdraw"].includes(type)) {
-    let expense = new Transaction(type, amount);
-    return expense;
-  } else {
-    return undefined;
-  }
+  if (!["expense", "withdraw"].includes(type)) return undefined;
+  return new Transaction(type, amount);
 }
 
 // deposit
@@ -70,37 +55,30 @@ export function deposit(user, amount) {
 
 // withdraw
 export function withdraw(user, amount) {
-  if (user.balance !== 0) {
-    let expense = createExpense("withdraw", amount);
-    user.expenses.push(expense);
-    user.balance -= amount;
-    return user;
-  } else {
-    return undefined;
-  }
+  if (user.balance === 0) return undefined;
+  let expense = createExpense("withdraw", amount);
+  user.expenses.push(expense);
+  user.balance -= amount;
+  return user;
 }
 
 // compute total balance
 export function totalBalance(users, mobile) {
-  let user = users.find((u) => {
-    return u.mobile === mobile;
-  });
+  let user = users.find((u) => u.mobile === mobile);
 
-  if (user) {
-    let totalIncome = user.incomes.reduce(
-      (partialSum, income) => partialSum + income.amount,
-      0
-    );
-    let totalExpense = user.expenses.reduce(
-      (partialSum, expense) => partialSum + expense.amount,
-      0
-    );
-    user.balance = user.balance + totalIncome - totalExpense;
+  if (!user) return undefined;
 
-    return user;
-  } else {
-    return undefined;
-  }
+  let totalIncome = user.incomes.reduce(
+    (partialSum, income) => partialSum + income.amount,
+    0
+  );
+  let totalExpense = user.expenses.reduce(
+    (partialSum, expense) => partialSum + expense.amount,
+    0
+  );
+  user.balance = user.balance + totalIncome - totalExpense;
+
+  return user;
 }
 
 export function transfer(from, to, amount) {

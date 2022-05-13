@@ -10,8 +10,8 @@ import {
 import { User, users, createUser } from "./user.js";
 
 let edcel = createUser(1000000001, "password", "edcel");
-withdraw(edcel, 100); // -100
-deposit(edcel, 200); // 100
-addIncome(users, 200, 1000000001); // 300
-console.log(result1, "result"); // 200
+withdraw(edcel, 100); // undefined
+deposit(edcel, 200); // 200
+addIncome(users, 200, 1000000001); // 400
+addExpense(users, 100, 1000000001); // 300
 console.log(edcel); // 200
