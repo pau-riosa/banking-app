@@ -9,10 +9,11 @@
  */
 
 export let users = [];
-export function User(mobile, password, fullname) {
+export function User(mobile, password, fullname, isAdmin = false) {
   this.mobile = mobile;
   this.password = password;
   this.fullname = fullname;
+  this.isAdmin = isAdmin;
   this.balance = 0;
   this.incomes = [];
   this.expenses = [];
@@ -23,17 +24,23 @@ export function User(mobile, password, fullname) {
 // if exisiting, return an error
 // if not, add to the list
 // and then return user
-export function createUser(mobile, password, fullname) {
-  let found = users.find((u) => {
-    return u.mobile === mobile;
-  });
-  if (found) {
+export function createUser(mobile, password, fullname, isAdmin = false) {
+  let found = users.find((u) => u.mobile === mobile);
+
+  if (found) return undefined;
+
+  let user = new User(mobile, password, fullname, isAdmin);
+  users.push(user);
+  return user;
+}
+
+export function login(mobile, password) {
+  let found = users.find((u) => u.mobile === mobile);
+
+  if (!found) return undefined;
+  if (!found || !found.mobile === mobile || !found.password === password)
     return undefined;
-  } else {
-    let user = new User(mobile, password, fullname);
-    users.push(user);
-    return user;
-  }
+  return found;
 }
 
 export function register(mobile, password, fullname) {
