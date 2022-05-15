@@ -6,8 +6,8 @@ import {
   totalBalance,
   withdraw,
   deposit,
-} from "./transaction.js";
-import { User, users, createUser } from "./user.js";
+} from "./js/transaction/index.js";
+import { User, users, createUser } from "./js/user/index.js";
 
 let edcel = createUser(1000000001, "password", "edcel");
 withdraw(edcel, 100); // undefined
