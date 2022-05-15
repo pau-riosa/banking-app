@@ -1,4 +1,4 @@
-import { login } from "./index.js";
+import { createUser, login } from "./index.js";
 
 const loginBtn = document.querySelector("#login-btn");
 const loginSection = document.querySelector("section.login");
@@ -11,9 +11,8 @@ loginBtn.onclick = function (e) {
   e.preventDefault();
 
   let result = login(mobile.value, password.value);
-
   if (result !== undefined && result.isAdmin)
     window.location = "./admin-dashboard.html";
-  if (result !== undefined && !result.isAdmin)
+  if (result !== undefined && result.isAdmin === false)
     window.location = "./user-dashboard.html";
 };

@@ -12,7 +12,7 @@ export let users = JSON.parse(getItem("userList")) || [];
  * expenses - [] of Transaction of Expense
  */
 export function User(mobile, password, fullname, isAdmin = false) {
-  this.mobile = mobile;
+  this.mobile = parseInt(mobile);
   this.password = password;
   this.fullname = fullname;
   this.isAdmin = isAdmin;
@@ -38,6 +38,7 @@ export function createUser(mobile, password, fullname, isAdmin = false) {
 }
 
 export function login(mobile, password) {
+  mobile = parseInt(mobile);
   let found = users.find((u) => u.mobile === mobile);
 
   if (!found) return undefined;
@@ -49,6 +50,6 @@ export function login(mobile, password) {
 export function register(mobile, password, fullname) {
   let user = createUser(mobile, password, fullname);
 
-  if (user !== undefined) console.info("error");
-  else console.error("error");
+  if (user !== undefined) return user;
+  else return undefined;
 }
