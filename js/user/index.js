@@ -1,3 +1,7 @@
+import { getItem, setItem } from "../localStorage.js";
+
+export let users = JSON.parse(getItem("userList")) || [];
+
 /*
  * User
  * mobile - unique + 11 digits
@@ -7,8 +11,6 @@
  * incomes - [] of Transaction of Income
  * expenses - [] of Transaction of Expense
  */
-
-export let users = [];
 export function User(mobile, password, fullname, isAdmin = false) {
   this.mobile = mobile;
   this.password = password;
@@ -31,6 +33,7 @@ export function createUser(mobile, password, fullname, isAdmin = false) {
 
   let user = new User(mobile, password, fullname, isAdmin);
   users.push(user);
+  setItem("userList", users);
   return user;
 }
 
