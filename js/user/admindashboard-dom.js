@@ -12,6 +12,13 @@ function displayUsers(users) {
             <td>${u.mobile}</td>
             <td>${u.fullname}</td>
             <td>${total.balance}</td>
+            <td>
+              <select>
+                 <option value="withdraw">withdraw</option> 
+                 <option value="deposit">deposit</option> 
+                 <option value="transfer">transfer</option> 
+              </select>
+            </td>
           </tr>
     `;
   });
@@ -19,4 +26,6 @@ function displayUsers(users) {
   tableBody.innerHTML = result;
 }
 
-displayUsers(users);
+(function () {
+  displayUsers(users);
+})();
