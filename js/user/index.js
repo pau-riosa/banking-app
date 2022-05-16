@@ -21,6 +21,10 @@ export function User(mobile, password, fullname, isAdmin = false) {
   this.expenses = [];
 }
 
+export function getUsers() {
+  return users.filter((u) => u.isAdmin === false);
+}
+
 // create user
 // find user
 // if exisiting, return an error

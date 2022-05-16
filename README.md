@@ -44,3 +44,5 @@ Priority for Today (May 13 2022)
 - if none existing, throw an error
 - if wrong creds, throw an error
 
+
+# List all Users

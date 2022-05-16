@@ -64,6 +64,7 @@ export function withdraw(user, amount) {
 
 // compute total balance
 export function totalBalance(users, mobile) {
+  mobile = parseInt(mobile);
   let user = users.find((u) => u.mobile === mobile);
 
   if (!user) return undefined;
