@@ -21,6 +21,7 @@ function displayUsers(users) {
             <td>${total.balance}</td>
             <td>
               <select>
+                 <option value="" selected>action</option> 
                  <option value="withdraw">withdraw</option> 
                  <option value="deposit">deposit</option> 
                  <option value="transfer">transfer</option> 
